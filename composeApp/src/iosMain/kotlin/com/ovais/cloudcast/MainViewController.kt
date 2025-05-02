@@ -1,6 +1,6 @@
 package com.ovais.cloudcast
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.ovais.cloudcast.core.App
+import com.ovais.cloudcast.home.presentation.HomeScreen
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController() = ComposeUIViewController { HomeScreen() }

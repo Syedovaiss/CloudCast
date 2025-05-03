@@ -1,4 +1,4 @@
-package com.ovais.cloudcast.core.usecase
+package com.ovais.cloudcast.core.domain.usecase
 
 fun interface SuspendParameterizedUseCase<Param, ReturnType> {
     suspend operator fun invoke(param: Param): ReturnType

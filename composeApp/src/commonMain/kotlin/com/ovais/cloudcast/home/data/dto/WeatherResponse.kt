@@ -104,12 +104,12 @@ data class WeatherResponse(
                     dewPointInC = this.current.dewpoint_c,
                     dewPointInF = this.current.dewpoint_f,
                     airQuality = AirQuality(
-                        co = this.current.air_quality.co,
-                        no2 = this.current.air_quality.no2,
-                        o3 = this.current.air_quality.o3,
-                        so2 = this.current.air_quality.so2,
-                        pm10 = this.current.air_quality.pm10,
-                        pm25 = this.current.air_quality.pm2_5
+                        co = this.current.air_quality?.co,
+                        no2 = this.current.air_quality?.no2,
+                        o3 = this.current.air_quality?.o3,
+                        so2 = this.current.air_quality?.so2,
+                        pm10 = this.current.air_quality?.pm10,
+                        pm25 = this.current.air_quality?.pm2_5
                     )
                 )
             )
@@ -144,7 +144,7 @@ data class CurrentState(
     val heatindex_f: Float,
     val dewpoint_c: Float,
     val dewpoint_f: Float,
-    val air_quality: CurrentAirQuality
+    val air_quality: CurrentAirQuality? = null
 )
 
 @Serializable
@@ -155,10 +155,10 @@ data class CurrentCondition(
 
 @Serializable
 data class CurrentAirQuality(
-    val co: Float,
-    val no2: Float,
-    val o3: Float,
-    val so2: Float,
-    val pm2_5: Float,
-    val pm10: Float
+    val co: Float? = null,
+    val no2: Float? = null,
+    val o3: Float? = null,
+    val so2: Float? = null,
+    val pm2_5: Float? = null,
+    val pm10: Float? = null
 )

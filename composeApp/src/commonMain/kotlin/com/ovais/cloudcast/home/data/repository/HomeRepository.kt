@@ -1,8 +1,8 @@
 package com.ovais.cloudcast.home.data.repository
 
-import com.ovais.cloudcast.core.network.DataError
-import com.ovais.cloudcast.core.network.Result
-import com.ovais.cloudcast.core.network.map
+import com.ovais.cloudcast.core.data.network.DataError
+import com.ovais.cloudcast.core.data.network.Result
+import com.ovais.cloudcast.core.data.network.map
 import com.ovais.cloudcast.home.data.network.HomeClient
 import com.ovais.cloudcast.home.domain.Weather
 

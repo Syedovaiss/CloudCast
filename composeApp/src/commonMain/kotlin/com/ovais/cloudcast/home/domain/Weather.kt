@@ -32,7 +32,7 @@ data class Current(
     val heatIndexInF: Float,
     val dewPointInC: Float,
     val dewPointInF: Float,
-    val airQuality: AirQuality
+    val airQuality: AirQuality?
 )
 
 data class Condition(
@@ -41,10 +41,10 @@ data class Condition(
 )
 
 data class AirQuality(
-    val co: Float,
-    val no2: Float,
-    val o3: Float,
-    val so2: Float,
-    val pm25: Float,
-    val pm10: Float
+    val co: Float?,
+    val no2: Float?,
+    val o3: Float?,
+    val so2: Float?,
+    val pm25: Float?,
+    val pm10: Float?
 )

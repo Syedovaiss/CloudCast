@@ -1,4 +1,5 @@
 package com.ovais.cloudcast.home.presentation
 
-class HomeUiData {
-}
+data class HomeUiData(
+    val weatherType: String
+)

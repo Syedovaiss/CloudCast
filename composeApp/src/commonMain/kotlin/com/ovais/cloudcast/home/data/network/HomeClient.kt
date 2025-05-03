@@ -1,8 +1,8 @@
 package com.ovais.cloudcast.home.data.network
 
-import com.ovais.cloudcast.core.network.DataError
-import com.ovais.cloudcast.core.network.Result
-import com.ovais.cloudcast.core.network.safeCall
+import com.ovais.cloudcast.core.data.network.DataError
+import com.ovais.cloudcast.core.data.network.Result
+import com.ovais.cloudcast.core.data.network.safeCall
 import com.ovais.cloudcast.home.data.dto.WeatherResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get

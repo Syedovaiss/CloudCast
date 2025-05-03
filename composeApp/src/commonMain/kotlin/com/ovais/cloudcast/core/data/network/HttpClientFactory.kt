@@ -1,4 +1,4 @@
-package com.ovais.cloudcast.core.network
+package com.ovais.cloudcast.core.data.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine

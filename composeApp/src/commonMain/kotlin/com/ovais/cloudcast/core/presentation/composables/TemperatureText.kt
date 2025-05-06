@@ -2,6 +2,7 @@ package com.ovais.cloudcast.core.presentation.composables
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -20,7 +21,8 @@ fun TemperatureText(
     degreeText: String = "°",
     weatherType: String,
     weatherSize: TextUnit = 32.sp,
-    textColor:Color = primaryText
+    textColor:Color = primaryText,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = buildAnnotatedString {
@@ -44,6 +46,7 @@ fun TemperatureText(
                 append(weatherType)
             }
         },
-        color = textColor
+        color = textColor,
+        modifier = modifier
     )
 }

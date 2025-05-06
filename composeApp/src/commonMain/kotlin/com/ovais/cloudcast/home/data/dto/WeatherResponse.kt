@@ -3,74 +3,19 @@ package com.ovais.cloudcast.home.data.dto
 import com.ovais.cloudcast.home.domain.AirQuality
 import com.ovais.cloudcast.home.domain.Condition
 import com.ovais.cloudcast.home.domain.Current
+import com.ovais.cloudcast.home.domain.Day
+import com.ovais.cloudcast.home.domain.Forecast
+import com.ovais.cloudcast.home.domain.ForecastDay
+import com.ovais.cloudcast.home.domain.Hour
 import com.ovais.cloudcast.home.domain.Location
 import com.ovais.cloudcast.home.domain.Weather
 import kotlinx.serialization.Serializable
 
-/**
-{
-"location": {
-"name": "Karachi",
-"region": "Sindh",
-"country": "Pakistan",
-"lat": 24.8667,
-"lon": 67.05,
-"tz_id": "Asia/Karachi",
-"localtime_epoch": 1746196985,
-"localtime": "2025-05-02 19:43"
-},
-"current": {
-"last_updated_epoch": 1746196200,
-"last_updated": "2025-05-02 19:30",
-"temp_c": 30.2,
-"temp_f": 86.4,
-"is_day": 0,
-"condition": {
-"text": "Mist",
-"icon": "//cdn.weatherapi.com/weather/64x64/night/143.png",
-"code": 1030
-},
-"wind_mph": 17.0,
-"wind_kph": 27.4,
-"wind_degree": 270,
-"wind_dir": "W",
-"pressure_mb": 1004.0,
-"pressure_in": 29.65,
-"precip_mm": 0.0,
-"precip_in": 0.0,
-"humidity": 66,
-"cloud": 25,
-"feelslike_c": 36.7,
-"feelslike_f": 98.1,
-"windchill_c": 28.5,
-"windchill_f": 83.2,
-"heatindex_c": 32.6,
-"heatindex_f": 90.7,
-"dewpoint_c": 23.7,
-"dewpoint_f": 74.7,
-"vis_km": 5.0,
-"vis_miles": 3.0,
-"uv": 0.0,
-"gust_mph": 23.0,
-"gust_kph": 37.0,
-"air_quality": {
-"co": 592.0,
-"no2": 7.03,
-"o3": 103.0,
-"so2": 19.055,
-"pm2_5": 29.97,
-"pm10": 54.39,
-"us-epa-index": 2,
-"gb-defra-index": 3
-}
-}
-}
-
- * **/
 @Serializable
 data class WeatherResponse(
     val location: LocationResponse,
-    val current: CurrentState
+    val current: CurrentState,
+    val forecast: ForecastResponse
 ) {
     val toWeather: Weather
         get() {
@@ -111,10 +56,90 @@ data class WeatherResponse(
                         pm10 = this.current.air_quality?.pm10,
                         pm25 = this.current.air_quality?.pm2_5
                     )
+                ),
+                forecast = Forecast(
+                    forecastDay = this.forecast.forecastDay.map {
+                        ForecastDay(
+                            date = it.date,
+                            day = Day(
+                                maxTemperatureInC = it.day.maxtemp_c,
+                                maxTemperatureInF = it.day.maxtemp_f,
+                                minTemperatureInC = it.day.mintemp_c,
+                                minTemperatureInF = it.day.mintemp_f,
+                                averageTemperatureInC = it.day.avgtemp_c,
+                                averageHumidity = it.day.avgtemp_f,
+                                maxWindKPH = it.day.maxwind_kph,
+                                maxWindMPH = it.day.maxwind_mph,
+                                averageTemperatureInF = it.day.avgtemp_f,
+                                chanceOfRain = it.day.daily_chance_of_rain,
+                                chanceOfSnow = it.day.daily_chance_of_snow,
+                                condition = it.day.condition
+                            ),
+                            hour = it.hour.map { hour ->
+                                Hour(
+                                    time = hour.time,
+                                    temperatureInC = hour.temp_c,
+                                    temperatureInF = hour.temp_f,
+                                    condition = hour.condition,
+                                    windDirection = hour.wind_dir,
+                                    windDegree = hour.wind_degree,
+                                    windKPH = hour.wind_kph,
+                                    windMPH = hour.wind_mph,
+                                    feelsLikeInF = hour.feelslike_f,
+                                    feelsLikeInC = hour.feelslike_c,
+                                    humidity = hour.humidity
+                                )
+                            }
+                        )
+                    }
                 )
             )
         }
 }
+
+@Serializable
+data class ForecastResponse(
+    val forecastDay: List<ForecastDayResponse> = emptyList()
+)
+
+@Serializable
+data class ForecastDayResponse(
+    val date: String,
+    val day: DayResponse,
+    val hour: List<HourResponse>
+)
+
+@Serializable
+data class HourResponse(
+    val time: String,
+    val temp_c: Float,
+    val temp_f: Float,
+    val condition: CurrentCondition,
+    val wind_mph: Float,
+    val wind_kph: Float,
+    val wind_degree: Int,
+    val wind_dir: String,
+    val humidity: Float,
+    val feelslike_c: Float,
+    val feelslike_f: Float,
+)
+
+@Serializable
+data class DayResponse(
+    val maxtemp_c: Float,
+    val maxtemp_f: Float,
+    val mintemp_c: Float,
+    val mintemp_f: Float,
+    val avgtemp_c: Float,
+    val avgtemp_f: Float,
+    val maxwind_mph: Float,
+    val maxwind_kph: Float,
+    val avghumidity: Float,
+    val daily_chance_of_rain: Int,
+    val daily_chance_of_snow: Int,
+    val condition: CurrentCondition
+
+)
 
 @Serializable
 data class LocationResponse(

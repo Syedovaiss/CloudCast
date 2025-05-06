@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ovais.cloudcast.core.data.network.onError
 import com.ovais.cloudcast.core.data.network.onSuccess
-import com.ovais.cloudcast.home.domain.GetCurrentWeatherUseCase
+import com.ovais.cloudcast.home.domain.GetWeatherConfigurationUseCase
+import com.ovais.cloudcast.home.domain.GetWeatherForecastUseCase
 import com.ovais.cloudcast.utils.DEFAULT_CITY
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase
+    private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
+    private val getWeatherConfigurationUseCase: GetWeatherConfigurationUseCase
 ) : ViewModel() {
 
     private val _uiState by lazy { MutableStateFlow<HomeUIState>(HomeUIState.Loading) }
@@ -26,7 +28,7 @@ class HomeViewModel(
 
     private fun fetchCurrentWeather() {
         viewModelScope.launch {
-            getCurrentWeatherUseCase(DEFAULT_CITY)
+            getWeatherForecastUseCase(DEFAULT_CITY)
                 .onSuccess { data ->
                     updateState(HomeUIState.Loaded(data))
                 }.onError { error ->

@@ -8,9 +8,13 @@ import com.ovais.cloudcast.home.data.network.DefaultHomeClient
 import com.ovais.cloudcast.home.data.network.HomeClient
 import com.ovais.cloudcast.home.data.repository.DefaultHomeRepository
 import com.ovais.cloudcast.home.data.repository.HomeRepository
-import com.ovais.cloudcast.home.domain.DefaultGetCurrentWeatherUseCase
-import com.ovais.cloudcast.home.domain.GetCurrentWeatherUseCase
+import com.ovais.cloudcast.home.domain.DefaultGetWeatherConfigurationUseCase
+import com.ovais.cloudcast.home.domain.DefaultGetWeatherForecastUseCase
+import com.ovais.cloudcast.home.domain.GetWeatherConfigurationUseCase
+import com.ovais.cloudcast.home.domain.GetWeatherForecastUseCase
+import com.ovais.cloudcast.home.presentation.DefaultWeatherUiDataMapper
 import com.ovais.cloudcast.home.presentation.HomeViewModel
+import com.ovais.cloudcast.home.presentation.WeatherUiDataMapper
 import com.ovais.cloudcast.settings.data.DefaultSettingsManager
 import com.ovais.cloudcast.settings.data.SettingsManager
 import org.koin.core.module.Module
@@ -34,7 +38,9 @@ val sharedModule = module {
     singleOf(::DefaultHomeClient).bind<HomeClient>()
     singleOf(::DefaultSettingsManager).bind<SettingsManager>()
     singleOf(::DefaultHomeRepository).bind<HomeRepository>()
-    singleOf(::DefaultGetCurrentWeatherUseCase).bind<GetCurrentWeatherUseCase>()
+    singleOf(::DefaultGetWeatherForecastUseCase).bind<GetWeatherForecastUseCase>()
+    singleOf(::DefaultGetWeatherConfigurationUseCase).bind<GetWeatherConfigurationUseCase>()
+    singleOf(::DefaultWeatherUiDataMapper).bind<WeatherUiDataMapper>()
     viewModelOf(::HomeViewModel)
 
 }

@@ -1,9 +1,52 @@
 package com.ovais.cloudcast.home.domain
 
+import com.ovais.cloudcast.home.data.dto.CurrentCondition
+
 
 data class Weather(
     val location: Location,
-    val current: Current
+    val current: Current,
+    val forecast: Forecast
+)
+
+data class Forecast(
+    val forecastDay: List<ForecastDay> = emptyList()
+
+)
+
+data class ForecastDay(
+    val date: String,
+    val day: Day,
+    val hour: List<Hour>
+)
+
+data class Day(
+    val maxTemperatureInC: Float,
+    val maxTemperatureInF: Float,
+    val minTemperatureInC: Float,
+    val minTemperatureInF: Float,
+    val averageTemperatureInC: Float,
+    val averageTemperatureInF: Float,
+    val maxWindMPH: Float,
+    val maxWindKPH: Float,
+    val averageHumidity: Float,
+    val chanceOfRain: Int,
+    val chanceOfSnow: Int,
+    val condition: CurrentCondition
+)
+
+data class Hour(
+    val time: String,
+    val temperatureInC: Float,
+    val temperatureInF: Float,
+    val condition: CurrentCondition,
+    val windMPH: Float,
+    val windKPH: Float,
+    val windDegree: Int,
+    val windDirection: String,
+    val humidity: Float,
+    val feelsLikeInC: Float,
+    val feelsLikeInF: Float,
 )
 
 data class Location(

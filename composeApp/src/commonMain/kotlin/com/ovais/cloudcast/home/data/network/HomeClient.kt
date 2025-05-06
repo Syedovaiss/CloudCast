@@ -24,11 +24,15 @@ class DefaultHomeClient(
         canFetchAQI: Boolean
     ): Result<WeatherResponse, DataError.Remote> {
         return safeCall<WeatherResponse> {
-            httpClient.get("http://api.weatherapi.com/v1/" + GET_CURRENT_WEATHER_ENDPOINT) {
-                parameter("key","6f071b0321a74bbcb30152108252704")
+            httpClient.get("http://api.weatherapi.com/v1/$GET_WEATHER_FORECAST") {
+                parameter("key", "6f071b0321a74bbcb30152108252704")
                 parameter("q", city)
-                parameter("aqi", if (canFetchAQI) "yes" else "no")
+                parameter("aqi", getAQIParams(canFetchAQI))
             }
         }
+    }
+
+    private fun getAQIParams(isAQIEnabled: Boolean): String {
+        return if (isAQIEnabled) "yes" else "no"
     }
 }

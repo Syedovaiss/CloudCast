@@ -6,14 +6,14 @@ import com.ovais.cloudcast.core.domain.usecase.SuspendParameterizedUseCase
 import com.ovais.cloudcast.home.data.repository.HomeRepository
 import com.ovais.cloudcast.settings.data.SettingsManager
 
-interface GetCurrentWeatherUseCase :
+interface GetWeatherForecastUseCase :
     SuspendParameterizedUseCase<String, Result<Weather, DataError.Remote>>
 
 
-class DefaultGetCurrentWeatherUseCase(
+class DefaultGetWeatherForecastUseCase(
     private val homeRepository: HomeRepository,
     private val settingsManager: SettingsManager
-) : GetCurrentWeatherUseCase {
+) : GetWeatherForecastUseCase {
     override suspend fun invoke(param: String): Result<Weather, DataError.Remote> {
         return homeRepository.fetchWeatherForecast(param, settingsManager.hasAQIEnabled())
     }

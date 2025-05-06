@@ -3,6 +3,7 @@ package com.ovais.cloudcast.home.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cloudcast.composeapp.generated.resources.Res
-import cloudcast.composeapp.generated.resources.compose_multiplatform
 import cloudcast.composeapp.generated.resources.ic_current_location
 import cloudcast.composeapp.generated.resources.ic_setting
 import coil3.compose.AsyncImage
@@ -24,6 +24,7 @@ import com.ovais.cloudcast.core.presentation.composables.TemperatureText
 import com.ovais.cloudcast.core.presentation.composables.TitleText
 import com.ovais.cloudcast.core.presentation.primary
 import com.ovais.cloudcast.home.domain.Weather
+import com.ovais.cloudcast.utils.asImageUrl
 import org.jetbrains.compose.resources.painterResource
 
 
@@ -63,14 +64,21 @@ fun HomeScreenView(
                 )
                 .width(200.dp)
                 .height(200.dp),
-            model = data.current.condition.icon,
+            model = data.current.condition.icon.asImageUrl,
             contentDescription = null
         )
 
-        TemperatureText(
-            digitText = data.current.temperatureInC.toString(),
-            weatherType = data.current.condition.text
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            TemperatureText(
+                digitText = data.current.temperatureInC.toString(),
+                weatherType = data.current.condition.text
+            )
+        }
 
     }
 }

@@ -9,5 +9,6 @@ data class AppSettings(
     val id: Int,
     val unitType: String,
     val hasAQIEnabled: Boolean,
-    val notificationEnabled: Boolean
+    val notificationEnabled: Boolean,
+    val measuringUnit: String
 )

@@ -23,14 +23,12 @@ import coil3.compose.AsyncImage
 import com.ovais.cloudcast.core.presentation.composables.TemperatureText
 import com.ovais.cloudcast.core.presentation.composables.TitleText
 import com.ovais.cloudcast.core.presentation.primary
-import com.ovais.cloudcast.home.domain.Weather
-import com.ovais.cloudcast.utils.asImageUrl
 import org.jetbrains.compose.resources.painterResource
 
 
 @Composable
 fun HomeScreenView(
-    data: Weather
+    data: HomeUiData
 ) {
     Column(
         modifier = Modifier
@@ -44,7 +42,7 @@ fun HomeScreenView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            TitleText("${data.location.name},${data.location.region}")
+            TitleText(data.locationName)
             Image(
                 painter = painterResource(Res.drawable.ic_current_location),
                 contentDescription = null
@@ -64,7 +62,7 @@ fun HomeScreenView(
                 )
                 .width(200.dp)
                 .height(200.dp),
-            model = data.current.condition.icon.asImageUrl,
+            model = data.weatherIcon,
             contentDescription = null
         )
 
@@ -75,8 +73,8 @@ fun HomeScreenView(
             contentAlignment = Alignment.Center
         ) {
             TemperatureText(
-                digitText = data.current.temperatureInC.toString(),
-                weatherType = data.current.condition.text
+                digitText = data.currentTemperature,
+                weatherType = data.weatherType
             )
         }
 

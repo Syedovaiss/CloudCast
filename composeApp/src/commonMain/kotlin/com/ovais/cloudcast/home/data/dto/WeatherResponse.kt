@@ -58,7 +58,7 @@ data class WeatherResponse(
                     )
                 ),
                 forecast = Forecast(
-                    forecastDay = this.forecast.forecastDay.map {
+                    forecastDay = this.forecast.forecastday.map {
                         ForecastDay(
                             date = it.date,
                             day = Day(
@@ -99,7 +99,7 @@ data class WeatherResponse(
 
 @Serializable
 data class ForecastResponse(
-    val forecastDay: List<ForecastDayResponse> = emptyList()
+    val forecastday: List<ForecastDayResponse> = emptyList()
 )
 
 @Serializable

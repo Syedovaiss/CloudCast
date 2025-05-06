@@ -28,6 +28,7 @@ class DefaultHomeClient(
                 parameter("key", "6f071b0321a74bbcb30152108252704")
                 parameter("q", city)
                 parameter("aqi", getAQIParams(canFetchAQI))
+                parameter("days", 7)
             }
         }
     }

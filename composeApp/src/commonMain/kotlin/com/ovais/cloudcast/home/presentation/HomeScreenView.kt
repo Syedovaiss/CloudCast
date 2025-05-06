@@ -118,5 +118,6 @@ fun HomeScreenView(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
+        ForecastView(data.forecast)
     }
 }

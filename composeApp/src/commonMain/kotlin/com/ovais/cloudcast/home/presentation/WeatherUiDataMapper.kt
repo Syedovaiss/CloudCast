@@ -26,6 +26,10 @@ class DefaultWeatherUiDataMapper : WeatherUiDataMapper {
                 data.current.feelsLikeInC.orZero.toString()
             } else data.current.feelsLikeInF.orZero.toString(),
             windDirection = data.current.windDirection,
+            humidity = data.current.humidity.toString(),
+            dew = if(isCEnabled) {
+                data.current.dewPointInC.toString()
+            } else data.current.dewPointInF.toString(),
             wind = if (isKPHEnabled) {
                 data.current.windInKPH.toString()
             } else data.current.windInMPH.toString(),

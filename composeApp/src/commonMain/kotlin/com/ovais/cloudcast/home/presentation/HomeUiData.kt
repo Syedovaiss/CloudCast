@@ -6,6 +6,8 @@ data class HomeUiData(
     val currentTemperature: String,
     val feelsLike:String,
     val wind: String,
+    val dew:String,
+    val humidity: String,
     val windDirection: String,
     val locationName: String,
     val forecast: List<WeeklyForecast>,

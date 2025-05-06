@@ -12,18 +12,26 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cloudcast.composeapp.generated.resources.Res
 import cloudcast.composeapp.generated.resources.ic_current_location
+import cloudcast.composeapp.generated.resources.ic_dew
+import cloudcast.composeapp.generated.resources.ic_humidity
 import cloudcast.composeapp.generated.resources.ic_setting
+import cloudcast.composeapp.generated.resources.ic_wind
 import coil3.compose.AsyncImage
+import com.ovais.cloudcast.core.presentation.appBackground
 import com.ovais.cloudcast.core.presentation.composables.TemperatureText
+import com.ovais.cloudcast.core.presentation.composables.TextIcon
 import com.ovais.cloudcast.core.presentation.composables.TitleText
-import com.ovais.cloudcast.core.presentation.primary
 import org.jetbrains.compose.resources.painterResource
 
 
@@ -31,10 +39,12 @@ import org.jetbrains.compose.resources.painterResource
 fun HomeScreenView(
     data: HomeUiData
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(primary)
+            .background(appBackground)
+            .verticalScroll(scrollState)
     ) {
         Row(
             modifier = Modifier
@@ -59,14 +69,13 @@ fun HomeScreenView(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    16.dp
+                    all = 16.dp
                 )
                 .width(200.dp)
                 .height(200.dp),
             model = data.weatherIcon,
             contentDescription = null
         )
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -78,6 +87,36 @@ fun HomeScreenView(
                 weatherType = data.weatherType
             )
         }
-        Text("Feels Like:${data.feelsLike}")
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 24.dp
+                )
+                .background(
+                    brush = Brush.sweepGradient(listOf(Color.Black, Color.Black)),
+                    alpha = 0.1f,
+                    shape = RoundedCornerShape(12.dp)
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            TextIcon(
+                resource = Res.drawable.ic_dew,
+                title = data.dew,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+            TextIcon(
+                resource = Res.drawable.ic_humidity,
+                title = data.humidity,
+                modifier = Modifier.padding(horizontal = 8.dp)
+            )
+            TextIcon(
+                resource = Res.drawable.ic_wind,
+                title = data.wind,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 }

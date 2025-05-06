@@ -4,10 +4,11 @@ data class HomeUiData(
     val weatherType: String,
     val weatherIcon: String,
     val currentTemperature: String,
+    val feelsLike:String,
     val wind: String,
     val windDirection: String,
     val locationName: String,
-    val forecast: List<WeeklyForecast>
+    val forecast: List<WeeklyForecast>,
 )
 
 data class WeeklyForecast(

@@ -22,6 +22,9 @@ class DefaultWeatherUiDataMapper : WeatherUiDataMapper {
             currentTemperature = if (isCEnabled) {
                 data.current.temperatureInC.orZero.toString()
             } else data.current.temperatureInF.orZero.toString(),
+            feelsLike = if (isCEnabled) {
+                data.current.feelsLikeInC.orZero.toString()
+            } else data.current.feelsLikeInF.orZero.toString(),
             windDirection = data.current.windDirection,
             wind = if (isKPHEnabled) {
                 data.current.windInKPH.toString()

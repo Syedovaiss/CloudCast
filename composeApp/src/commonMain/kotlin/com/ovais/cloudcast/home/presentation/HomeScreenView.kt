@@ -40,10 +40,12 @@ fun HomeScreenView(
     data: HomeUiData,
     onSettingsClicked: () -> Unit
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(appBackground)
+            .verticalScroll(scrollState)
     ) {
         Row(
             modifier = Modifier

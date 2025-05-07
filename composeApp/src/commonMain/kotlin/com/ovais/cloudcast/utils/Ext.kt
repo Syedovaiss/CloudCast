@@ -11,3 +11,6 @@ val String.asImageUrl: String
     get() = "https:$this"
 val Int?.orOne: Int
     get() = this ?: 1
+val Int?.orZero: Int
+    get() = this ?: 0
+

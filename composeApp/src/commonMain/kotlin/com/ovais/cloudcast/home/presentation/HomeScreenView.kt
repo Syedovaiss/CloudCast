@@ -2,6 +2,7 @@ package com.ovais.cloudcast.home.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,14 +37,13 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun HomeScreenView(
-    data: HomeUiData
+    data: HomeUiData,
+    onSettingsClicked: () -> Unit
 ) {
-    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(appBackground)
-            .verticalScroll(scrollState)
     ) {
         Row(
             modifier = Modifier
@@ -71,6 +71,7 @@ fun HomeScreenView(
                     )
                     .width(32.dp)
                     .height(32.dp)
+                    .clickable { onSettingsClicked() }
             )
         }
 

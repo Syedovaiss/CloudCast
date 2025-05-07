@@ -16,7 +16,14 @@ import com.ovais.cloudcast.home.presentation.DefaultWeatherUiDataMapper
 import com.ovais.cloudcast.home.presentation.HomeViewModel
 import com.ovais.cloudcast.home.presentation.WeatherUiDataMapper
 import com.ovais.cloudcast.settings.data.DefaultSettingsManager
+import com.ovais.cloudcast.settings.data.DefaultSettingsRepository
 import com.ovais.cloudcast.settings.data.SettingsManager
+import com.ovais.cloudcast.settings.data.SettingsRepository
+import com.ovais.cloudcast.settings.domain.DefaultGetCurrentSettingsUseCase
+import com.ovais.cloudcast.settings.domain.DefaultUpdateSettingsUseCase
+import com.ovais.cloudcast.settings.domain.GetCurrentSettingsUseCase
+import com.ovais.cloudcast.settings.domain.UpdateSettingsUseCase
+import com.ovais.cloudcast.settings.presentation.SettingsViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -42,5 +49,11 @@ val sharedModule = module {
     singleOf(::DefaultGetWeatherConfigurationUseCase).bind<GetWeatherConfigurationUseCase>()
     singleOf(::DefaultWeatherUiDataMapper).bind<WeatherUiDataMapper>()
     viewModelOf(::HomeViewModel)
+
+    singleOf(::DefaultSettingsRepository).bind<SettingsRepository>()
+    singleOf(::DefaultUpdateSettingsUseCase).bind<UpdateSettingsUseCase>()
+    singleOf(::DefaultGetCurrentSettingsUseCase).bind<GetCurrentSettingsUseCase>()
+    viewModelOf(::SettingsViewModel)
+
 
 }

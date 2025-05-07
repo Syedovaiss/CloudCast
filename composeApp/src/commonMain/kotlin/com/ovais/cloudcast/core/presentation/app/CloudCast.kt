@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ovais.cloudcast.home.presentation.HomeScreen
+import com.ovais.cloudcast.settings.presentation.SettingsScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -26,7 +27,21 @@ fun CloudCast() {
                 popEnterTransition = { slideInHorizontally() },
                 popExitTransition = { slideOutHorizontally() }
             ) {
-                HomeScreen()
+                HomeScreen {
+                    navController.navigate(Routes.Settings.routeId)
+                }
+            }
+
+            composable(
+                Routes.Settings.routeId,
+                enterTransition = { slideInHorizontally() },
+                exitTransition = { slideOutHorizontally() },
+                popEnterTransition = { slideInHorizontally() },
+                popExitTransition = { slideOutHorizontally() }
+            ) {
+                SettingsScreen {
+                    navController.popBackStack()
+                }
             }
         }
     }

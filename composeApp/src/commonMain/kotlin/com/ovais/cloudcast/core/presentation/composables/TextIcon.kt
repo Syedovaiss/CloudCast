@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -16,7 +17,9 @@ import org.jetbrains.compose.resources.painterResource
 fun TextIcon(
     resource: DrawableResource,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    imageWidth: Dp = 32.dp,
+    imageHeight: Dp = 32.dp
 ) {
     Column(modifier = modifier) {
         Image(
@@ -26,8 +29,8 @@ fun TextIcon(
                 .padding(
                     all = 16.dp
                 )
-                .width(32.dp)
-                .height(32.dp)
+                .width(imageWidth)
+                .height(imageHeight)
         )
         BodyText(
             text = title,

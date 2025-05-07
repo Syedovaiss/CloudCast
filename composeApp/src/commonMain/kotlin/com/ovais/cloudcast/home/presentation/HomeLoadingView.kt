@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.ovais.cloudcast.core.presentation.primary
+import com.ovais.cloudcast.core.presentation.appBackground
 
 @Composable
 fun HomeLoadingView() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(primary),
+            .background(appBackground),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

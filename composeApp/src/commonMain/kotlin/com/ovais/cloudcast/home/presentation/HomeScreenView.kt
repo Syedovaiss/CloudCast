@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cloudcast.composeapp.generated.resources.Res
-import cloudcast.composeapp.generated.resources.ic_current_location
 import cloudcast.composeapp.generated.resources.ic_dew
 import cloudcast.composeapp.generated.resources.ic_humidity
 import cloudcast.composeapp.generated.resources.ic_setting
@@ -53,15 +52,25 @@ fun HomeScreenView(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            TitleText(data.locationName)
-            Image(
-                painter = painterResource(Res.drawable.ic_current_location),
-                contentDescription = null
+            TitleText(
+                data.locationName,
+                modifier = Modifier
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 32.dp
+                    )
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(Res.drawable.ic_setting),
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 32.dp
+                    )
+                    .width(32.dp)
+                    .height(32.dp)
             )
         }
 

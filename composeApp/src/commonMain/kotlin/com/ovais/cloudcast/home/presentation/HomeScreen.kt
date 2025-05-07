@@ -22,13 +22,11 @@ fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
     onSettingsClicked:() -> Unit
 ) {
-    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .padding(WindowInsets.statusBars.asPaddingValues())
-            .verticalScroll(scrollState)
     ) {
         LaunchedEffect(Unit) {
             viewModel.getLatestWeather()

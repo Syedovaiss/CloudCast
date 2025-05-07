@@ -1,5 +1,6 @@
 package com.ovais.cloudcast.home.presentation
 
+import com.ovais.cloudcast.core.presentation.datetime.DateTimeManager
 import com.ovais.cloudcast.home.domain.ForecastDay
 import com.ovais.cloudcast.home.domain.Weather
 import com.ovais.cloudcast.utils.asImageUrl
@@ -10,7 +11,9 @@ fun interface WeatherUiDataMapper {
     fun map(data: Weather, isCEnabled: Boolean, isKPHEnabled: Boolean): HomeUiData
 }
 
-class DefaultWeatherUiDataMapper : WeatherUiDataMapper {
+class DefaultWeatherUiDataMapper(
+    private val dateTimeManager: DateTimeManager
+) : WeatherUiDataMapper {
     override fun map(
         data: Weather,
         isCEnabled: Boolean,
@@ -27,7 +30,7 @@ class DefaultWeatherUiDataMapper : WeatherUiDataMapper {
             } else data.current.feelsLikeInF.orZero.toString(),
             windDirection = data.current.windDirection,
             humidity = data.current.humidity.toString(),
-            dew = if(isCEnabled) {
+            dew = if (isCEnabled) {
                 data.current.dewPointInC.toString()
             } else data.current.dewPointInF.toString(),
             wind = if (isKPHEnabled) {
@@ -44,8 +47,9 @@ class DefaultWeatherUiDataMapper : WeatherUiDataMapper {
         isKPHEnabled: Boolean
     ): List<WeeklyForecast> {
         return data.forecast.forecastDay.map { forecastDay ->
+            val date = dateTimeManager.breakDateIntoNumbers(forecastDay.date)
             WeeklyForecast(
-                date = forecastDay.date,
+                date = dateTimeManager.getFormattedDate(date.first, date.second, date.third),
                 minTemperature = if (isCEnabled) {
                     forecastDay.day.minTemperatureInC.toString().orEmpty
                 } else forecastDay.day.minTemperatureInF.toString().orEmpty,

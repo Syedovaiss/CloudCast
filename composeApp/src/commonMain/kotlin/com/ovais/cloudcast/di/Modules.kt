@@ -4,6 +4,8 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.ovais.cloudcast.core.data.database.CloudCastDatabase
 import com.ovais.cloudcast.core.data.database.DatabaseFactory
 import com.ovais.cloudcast.core.data.network.HttpClientFactory
+import com.ovais.cloudcast.core.presentation.datetime.DateTimeManager
+import com.ovais.cloudcast.core.presentation.datetime.DefaultDateTimeManager
 import com.ovais.cloudcast.home.data.network.DefaultHomeClient
 import com.ovais.cloudcast.home.data.network.HomeClient
 import com.ovais.cloudcast.home.data.repository.DefaultHomeRepository
@@ -34,6 +36,7 @@ expect val platformModule: Module
 
 val sharedModule = module {
     single { HttpClientFactory.create(get()) }
+    singleOf(::DefaultDateTimeManager).bind<DateTimeManager>()
 
     single {
         get<DatabaseFactory>().create()

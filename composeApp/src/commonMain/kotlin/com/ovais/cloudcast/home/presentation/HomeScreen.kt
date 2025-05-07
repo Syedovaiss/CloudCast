@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +26,9 @@ fun HomeScreen(
             .background(Color.White)
             .padding(WindowInsets.statusBars.asPaddingValues())
     ) {
+        LaunchedEffect(Unit) {
+            viewModel.getLatestWeather()
+        }
         val state by viewModel.uiState.collectAsStateWithLifecycle()
         when (state) {
             is HomeUIState.Loading -> HomeLoadingView()

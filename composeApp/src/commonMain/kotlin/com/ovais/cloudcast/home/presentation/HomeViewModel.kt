@@ -25,7 +25,9 @@ class HomeViewModel(
     val uiState: StateFlow<HomeUIState>
         get() = _uiState.asStateFlow()
 
-    init {
+
+    fun getLatestWeather() {
+        updateState(HomeUIState.Loading)
         fetchCurrentWeather()
     }
 

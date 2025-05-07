@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -115,9 +114,7 @@ fun HourlyItemView(item: HourlyForecast) {
         BodyText(item.time)
         TextIcon(
             resource = Res.drawable.ic_feels_like,
-            title = item.feelsLike,
-            imageWidth = 16.dp,
-            imageHeight = 16.dp,
+            title = item.feelsLike
         )
     }
 }

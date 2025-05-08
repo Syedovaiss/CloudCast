@@ -2,7 +2,6 @@ package com.ovais.cloudcast.home.domain
 
 import com.ovais.cloudcast.home.data.dto.CurrentCondition
 
-
 data class Weather(
     val location: Location,
     val current: Current,

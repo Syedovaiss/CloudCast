@@ -5,5 +5,6 @@ sealed interface MeasuringUnit {
     data object MPH : MeasuringUnit
 }
 
+private const val KPH = "KPH"
 val String.asMeasuringUnit: MeasuringUnit
-    get() = if (this == "KPH") MeasuringUnit.KPH else MeasuringUnit.MPH
+    get() = if (this == KPH) MeasuringUnit.KPH else MeasuringUnit.MPH

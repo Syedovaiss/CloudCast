@@ -3,7 +3,6 @@ package com.ovais.cloudcast.core.data.database
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ovais.cloudcast.core.data.database.CloudCastDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager

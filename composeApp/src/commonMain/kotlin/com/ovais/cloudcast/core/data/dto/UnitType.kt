@@ -5,5 +5,6 @@ sealed interface UnitType {
     data object F : UnitType
 }
 
+private const val C = "C"
 val String.asUnitType: UnitType
-    get() = if (this == "C") UnitType.C else UnitType.F
+    get() = if (this == C) UnitType.C else UnitType.F

@@ -8,7 +8,6 @@ CloudCast is a modern weather application built with Kotlin Multiplatform and Je
 - 📱 Cross-platform support (Android, iOS, Desktop)
 - 🎨 Modern Material 3 design
 - 🔄 Automatic weather updates
-- 📍 Location-based weather
 - 🌦️ Detailed weather conditions
 - 💨 Wind speed information
 - 💧 Humidity levels

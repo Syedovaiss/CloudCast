@@ -26,6 +26,8 @@ import com.ovais.cloudcast.settings.domain.DefaultUpdateSettingsUseCase
 import com.ovais.cloudcast.settings.domain.GetCurrentSettingsUseCase
 import com.ovais.cloudcast.settings.domain.UpdateSettingsUseCase
 import com.ovais.cloudcast.settings.presentation.SettingsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -35,6 +37,11 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val sharedModule = module {
+
+    single { Dispatchers.Default }
+    single { Dispatchers.Main }
+    single { Dispatchers.IO }
+
     single { HttpClientFactory.create(get()) }
     singleOf(::DefaultDateTimeManager).bind<DateTimeManager>()
 
@@ -57,6 +64,4 @@ val sharedModule = module {
     singleOf(::DefaultUpdateSettingsUseCase).bind<UpdateSettingsUseCase>()
     singleOf(::DefaultGetCurrentSettingsUseCase).bind<GetCurrentSettingsUseCase>()
     viewModelOf(::SettingsViewModel)
-
-
 }

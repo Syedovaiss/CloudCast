@@ -15,7 +15,8 @@ class DefaultGetCurrentSettingsUseCase(
             unitType = settingsManager.getUnitType().toString(),
             hasAQIEnabled = settingsManager.hasAQIEnabled(),
             notificationEnabled = false,
-            measuringUnit = settingsManager.getMeasuringUnit().toString()
+            measuringUnit = settingsManager.getMeasuringUnit().toString(),
+            currentCity = settingsManager.getCurrentCity()
         )
     }
 }

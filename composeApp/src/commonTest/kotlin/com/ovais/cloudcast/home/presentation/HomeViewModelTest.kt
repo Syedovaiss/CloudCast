@@ -4,6 +4,7 @@ import com.ovais.cloudcast.core.data.network.DataError
 import com.ovais.cloudcast.core.data.network.Result
 import com.ovais.cloudcast.fake.FakeGetWeatherConfigurationUseCase
 import com.ovais.cloudcast.fake.FakeGetWeatherForecastUseCase
+import com.ovais.cloudcast.fake.FakeUpdateCityUseCase
 import com.ovais.cloudcast.fake.FakeWeatherUiDataMapper
 import com.ovais.cloudcast.fake.fakeWeatherResponse
 import com.ovais.cloudcast.fake.homeUiData
@@ -28,6 +29,7 @@ class HomeViewModelTest {
     private lateinit var getWeatherConfigurationUseCase: FakeGetWeatherConfigurationUseCase
     private lateinit var weatherUiDataMapper: FakeWeatherUiDataMapper
     private lateinit var viewModel: HomeViewModel
+    private lateinit var updateCityUseCase: FakeUpdateCityUseCase
 
     @BeforeTest
     fun setup() {
@@ -38,7 +40,8 @@ class HomeViewModelTest {
         viewModel = HomeViewModel(
             getWeatherForecastUseCase = getWeatherForecastUseCase,
             getWeatherConfigurationUseCase = getWeatherConfigurationUseCase,
-            weatherUiDataMapper = weatherUiDataMapper
+            weatherUiDataMapper = weatherUiDataMapper,
+            updateCityUseCase = updateCityUseCase
         )
     }
 

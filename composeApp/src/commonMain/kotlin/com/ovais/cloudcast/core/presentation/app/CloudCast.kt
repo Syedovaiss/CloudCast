@@ -27,9 +27,11 @@ fun CloudCast() {
                 popEnterTransition = { slideInHorizontally() },
                 popExitTransition = { slideOutHorizontally() }
             ) {
-                HomeScreen {
-                    navController.navigate(Routes.Settings.routeId)
-                }
+                HomeScreen(
+                    onSettingsClicked = {
+                        navController.navigate(Routes.Settings.routeId)
+                    }
+                )
             }
 
             composable(

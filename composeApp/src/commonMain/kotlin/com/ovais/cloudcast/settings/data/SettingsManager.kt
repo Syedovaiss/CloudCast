@@ -6,6 +6,7 @@ import com.ovais.cloudcast.core.data.dto.MeasuringUnit
 import com.ovais.cloudcast.core.data.dto.UnitType
 import com.ovais.cloudcast.core.data.dto.asMeasuringUnit
 import com.ovais.cloudcast.core.data.dto.asUnitType
+import com.ovais.cloudcast.utils.orEmpty
 import com.ovais.cloudcast.utils.orFalse
 import com.ovais.cloudcast.utils.orOne
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,9 +18,11 @@ interface SettingsManager {
     suspend fun getUnitType(): UnitType
     suspend fun hasAQIEnabled(): Boolean
     suspend fun getMeasuringUnit(): MeasuringUnit
+    suspend fun getCurrentCity(): String
     suspend fun updateUnitType(type: UnitType): Boolean
     suspend fun updateMeasuringUnit(type: MeasuringUnit): Boolean
     suspend fun updateAQISetting(enabled: Boolean): Boolean
+    suspend fun updateCurrentCity(city: String): Boolean
 }
 
 class DefaultSettingsManager(
@@ -48,6 +51,12 @@ class DefaultSettingsManager(
     override suspend fun getMeasuringUnit(): MeasuringUnit {
         return withContext(dispatcherDefault) {
             appSettingsDao.getSettings()?.measuringUnit?.asMeasuringUnit ?: MeasuringUnit.KPH
+        }
+    }
+
+    override suspend fun getCurrentCity(): String {
+        return withContext(dispatcherDefault) {
+            appSettingsDao.getSettings()?.currentCity.orEmpty
         }
     }
 
@@ -106,6 +115,28 @@ class DefaultSettingsManager(
                 } ?: run {
                     val settings = AppSettings.default.copy(
                         unitType = type.toString()
+                    )
+                    appSettingsDao.insertSettings(settings)
+                }
+                true
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    override suspend fun updateCurrentCity(city: String): Boolean {
+        return try {
+            withContext(dispatcherDefault) {
+                appSettingsDao.getSettings()?.let { settings ->
+                    val newSettings = settings.copy(
+                        currentCity = city
+                    )
+                    appSettingsDao.updateSettings(newSettings)
+                } ?: run {
+                    val settings = AppSettings.default.copy(
+                        unitType = city
                     )
                     appSettingsDao.insertSettings(settings)
                 }

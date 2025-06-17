@@ -18,7 +18,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
-    onSettingsClicked:() -> Unit
+    onSettingsClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +37,13 @@ fun HomeScreen(
                 message = (state as HomeUIState.Error).message
             )
 
-            is HomeUIState.Loaded -> HomeScreenView((state as HomeUIState.Loaded).data,onSettingsClicked)
+            is HomeUIState.Loaded -> HomeScreenView(
+                (state as HomeUIState.Loaded).data,
+                onSettingsClicked,
+                onSearchQuerySubmitted = { query ->
+                    viewModel.searchWeather(query)
+                }
+            )
         }
 
     }

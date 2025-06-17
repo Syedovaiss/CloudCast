@@ -30,6 +30,7 @@ actual class DatabaseFactory {
             appDataDir.mkdirs()
         }
 
+
         val dbFile = File(appDataDir, CloudCastDatabase.DB_NAME)
         return Room.databaseBuilder(dbFile.absolutePath)
     }

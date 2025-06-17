@@ -10,6 +10,7 @@ import com.ovais.cloudcast.home.domain.GetWeatherForecastUseCase
 import com.ovais.cloudcast.home.domain.UpdateCityUseCase
 import com.ovais.cloudcast.home.domain.Weather
 import com.ovais.cloudcast.home.domain.WeatherConfiguration
+import com.ovais.cloudcast.utils.DEFAULT_CITY
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,7 +42,7 @@ class HomeViewModel(
     private fun fetchCurrentWeather(city: String? = null) {
         viewModelScope.launch {
             val settings = getWeatherConfigurationUseCase()
-            val currentCity = city ?: currentCityUseCase()
+            val currentCity = (city ?: currentCityUseCase()).ifEmpty { DEFAULT_CITY }
             getWeatherForecastUseCase(currentCity)
                 .onSuccess { data ->
                     updateCurrentCity(currentCity)

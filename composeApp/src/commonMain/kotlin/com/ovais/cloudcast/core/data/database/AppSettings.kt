@@ -14,7 +14,7 @@ data class AppSettings(
     val hasAQIEnabled: Boolean,
     val notificationEnabled: Boolean,
     val measuringUnit: String,
-    val currentCity: String
+    val currentCity: String = DEFAULT_CITY
 ) {
     companion object {
         val default = AppSettings(

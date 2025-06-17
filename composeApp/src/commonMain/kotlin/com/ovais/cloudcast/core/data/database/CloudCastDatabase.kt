@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [AppSettings::class],
-    version = 1
+    version = 2
 )
 @ConstructedBy(BookDatabaseConstructor::class)
 abstract class CloudCastDatabase : RoomDatabase() {

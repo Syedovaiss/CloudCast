@@ -2,8 +2,10 @@ package com.ovais.cloudcast.home.presentation
 
 import com.ovais.cloudcast.core.data.network.DataError
 import com.ovais.cloudcast.core.data.network.Result
+import com.ovais.cloudcast.fake.FakeCurrentCityUseCase
 import com.ovais.cloudcast.fake.FakeGetWeatherConfigurationUseCase
 import com.ovais.cloudcast.fake.FakeGetWeatherForecastUseCase
+import com.ovais.cloudcast.fake.FakeUpdateCityUseCase
 import com.ovais.cloudcast.fake.FakeWeatherUiDataMapper
 import com.ovais.cloudcast.fake.fakeWeatherResponse
 import com.ovais.cloudcast.fake.homeUiData
@@ -28,6 +30,8 @@ class HomeViewModelTest {
     private lateinit var getWeatherConfigurationUseCase: FakeGetWeatherConfigurationUseCase
     private lateinit var weatherUiDataMapper: FakeWeatherUiDataMapper
     private lateinit var viewModel: HomeViewModel
+    private lateinit var updateCityUseCase: FakeUpdateCityUseCase
+    private lateinit var currentCityUseCase: FakeCurrentCityUseCase
 
     @BeforeTest
     fun setup() {
@@ -35,10 +39,14 @@ class HomeViewModelTest {
         getWeatherForecastUseCase = FakeGetWeatherForecastUseCase()
         getWeatherConfigurationUseCase = FakeGetWeatherConfigurationUseCase()
         weatherUiDataMapper = FakeWeatherUiDataMapper()
+        updateCityUseCase = FakeUpdateCityUseCase()
+        currentCityUseCase = FakeCurrentCityUseCase()
         viewModel = HomeViewModel(
             getWeatherForecastUseCase = getWeatherForecastUseCase,
             getWeatherConfigurationUseCase = getWeatherConfigurationUseCase,
-            weatherUiDataMapper = weatherUiDataMapper
+            weatherUiDataMapper = weatherUiDataMapper,
+            updateCityUseCase = updateCityUseCase,
+            currentCityUseCase = currentCityUseCase
         )
     }
 
@@ -53,7 +61,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `getLatestWeather success case updates state to Loaded`() = runTest {
+    fun `get latest weather success case updates state to Loaded`() = runTest {
         // Given
         val mockConfig = WeatherConfiguration(
             isUnitTypeC = true,
@@ -75,7 +83,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `getLatestWeather error case updates state to Error`() = runTest {
+    fun `get latest weather error case updates state to Error`() = runTest {
         // Given
         getWeatherForecastUseCase.result = Result.Error(DataError.Remote.SERVER)
 
@@ -89,5 +97,28 @@ class HomeViewModelTest {
             DataError.Remote.SERVER.name,
             (viewModel.uiState.value as HomeUIState.Error).message
         )
+    }
+    @Test
+    fun `search weather`() = runTest {
+        //Given
+        val mockConfig = WeatherConfiguration(
+            isUnitTypeC = true,
+            isKPHEnabled = true
+        )
+
+
+        getWeatherForecastUseCase.result = Result.Success(fakeWeatherResponse.toWeather)
+        getWeatherConfigurationUseCase.config = mockConfig
+        weatherUiDataMapper.mappedData = homeUiData
+
+        // When
+
+        viewModel.searchWeather("Karachi")
+
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Then
+        assertTrue(viewModel.uiState.value is HomeUIState.Loaded)
+        assertEquals(homeUiData, (viewModel.uiState.value as HomeUIState.Loaded).data)
     }
 }

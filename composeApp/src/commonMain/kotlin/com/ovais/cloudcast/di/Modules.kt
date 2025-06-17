@@ -10,10 +10,14 @@ import com.ovais.cloudcast.home.data.network.DefaultHomeClient
 import com.ovais.cloudcast.home.data.network.HomeClient
 import com.ovais.cloudcast.home.data.repository.DefaultHomeRepository
 import com.ovais.cloudcast.home.data.repository.HomeRepository
+import com.ovais.cloudcast.home.domain.DefaultGetCurrentCityUseCase
 import com.ovais.cloudcast.home.domain.DefaultGetWeatherConfigurationUseCase
 import com.ovais.cloudcast.home.domain.DefaultGetWeatherForecastUseCase
+import com.ovais.cloudcast.home.domain.DefaultUpdateCityUseCase
+import com.ovais.cloudcast.home.domain.GetCurrentCityUseCase
 import com.ovais.cloudcast.home.domain.GetWeatherConfigurationUseCase
 import com.ovais.cloudcast.home.domain.GetWeatherForecastUseCase
+import com.ovais.cloudcast.home.domain.UpdateCityUseCase
 import com.ovais.cloudcast.home.presentation.DefaultWeatherUiDataMapper
 import com.ovais.cloudcast.home.presentation.HomeViewModel
 import com.ovais.cloudcast.home.presentation.WeatherUiDataMapper
@@ -56,6 +60,8 @@ val sharedModule = module {
     singleOf(::DefaultSettingsManager).bind<SettingsManager>()
     singleOf(::DefaultHomeRepository).bind<HomeRepository>()
     singleOf(::DefaultGetWeatherForecastUseCase).bind<GetWeatherForecastUseCase>()
+    singleOf(::DefaultUpdateCityUseCase).bind<UpdateCityUseCase>()
+    singleOf(::DefaultGetCurrentCityUseCase).bind<GetCurrentCityUseCase>()
     singleOf(::DefaultGetWeatherConfigurationUseCase).bind<GetWeatherConfigurationUseCase>()
     singleOf(::DefaultWeatherUiDataMapper).bind<WeatherUiDataMapper>()
     viewModelOf(::HomeViewModel)
